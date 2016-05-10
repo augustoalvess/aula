@@ -1,0 +1,3 @@
+
+/var/www/aula/app/Calculadora.php:4	Avoid variables with short names like $x. Configured minimum length is 3.
+/var/www/aula/app/Calculadora.php:4	Avoid variables with short names like $y. Configured minimum length is 3.
