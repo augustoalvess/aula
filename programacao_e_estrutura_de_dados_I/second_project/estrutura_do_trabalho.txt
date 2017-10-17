@@ -1,0 +1,13 @@
+HashSet plataformas {
+	Hash set PlayStation Vita {
+		número de reviews => quantidade,
+		número de Editor’s Choice => quantidade,
+		percentual de ‘Masterpiece’ ou ‘Amazing’ reviews => quantidade	
+	}
+	iPad {
+		número de reviews => quantidade,
+		número de Editor’s Choice => quantidade,
+		percentual de ‘Masterpiece’ ou ‘Amazing’ reviews => quantidade
+	}
+
+}

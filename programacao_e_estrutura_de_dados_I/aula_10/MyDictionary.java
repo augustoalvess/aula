@@ -12,15 +12,15 @@ public class MyDictionary {
     
     private class Item {
         public String key;
-        public String value;
+        public Object value;
         
-        public Item(String k, String v) {
+        public Item(String k, Object v) {
             this.key = k;
             this.value = v;
         }
 
         public String toString() {
-            return this.key + ": " + this.value;
+            return this.key + ": " + this.value.toString();
         }
     }
     
@@ -46,7 +46,7 @@ public class MyDictionary {
                 return this.array.get(i).value;
             }
         }
-        return "0";
+        return null;
     }
 
     public int size() {
@@ -55,15 +55,5 @@ public class MyDictionary {
 
     public String toString() {
         return this.array.toString();
-    }
-
-    public void sort() {
-        // Sorting
-        Collections.sort(this.array, new Comparator<Item>() {
-            @Override
-            public int compare(Item item1, Item item2) {
-                return item1.key.compareTo(item2.key);
-            }
-        });
     }
 }
