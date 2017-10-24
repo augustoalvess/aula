@@ -1,0 +1,12 @@
+Bubble sort
+	Comparação de valores adjacentes (compara os pares e troca o menor pelo maior) -> O(n²)
+
+Selection sort
+	Procura o menor a cada passada do laço, vai selecionando o menor elemento e colocando no inicio, passa a procurar a partir da proxima posição que eu já olhei. (Faz menos comparações que o buble, um pouco mais rápido, porém igualmente compara todos com todos)
+	Seleciona o maior ou menor a cada passada -> O(n²)
+
+Insertion sort
+	Anda por uma sequencia de valores e toda vez que encontrar uma valor menor que um maior que está antes
+	Encontra um valor menor e vai descendo ele nas posições até encontrar um menor que ele (deslisa até a posição que você quer).
+	Desloca itens até a posição correta. -> O(n²)
+
