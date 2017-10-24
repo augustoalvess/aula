@@ -3,7 +3,13 @@ import java.io.*;
 import java.util.*;
 import java.text.DecimalFormat;
 
+/**
+ * Augusto Alves da Silva
+ * Anderson Sprandel
+ */
 public class Plataforma {
+	public static HashMap<String, HashMap> plataformas = new HashMap<String, HashMap>();
+
 	public static void main(String[] args) {
 		try
         {
@@ -12,7 +18,6 @@ public class Plataforma {
             bufferedReader.readLine(); // Lê a primeira para ignorar o cabeçalho.
             DecimalFormat df = new DecimalFormat("#.##"); 
 
-            HashMap<String, HashMap> plataformas = new HashMap<String, HashMap>();
             ArrayList<Double> scores = new ArrayList<Double>();
 
             // Inicialização e somatórios iniciais dos registros.
@@ -126,17 +131,17 @@ public class Plataforma {
                     df.format(((Double.parseDouble(plataformas.get(plataforma).get("percentual de Amazing reviews").toString()) * 100) / Double.parseDouble(plataformas.get(plataforma).get("número de reviews").toString()))) + "%"
                 );
 
+                // Calcula o desvio padrão de todos os scores
+                plataformas.get(plataforma).put(
+                    "desvio padrão (para variável aleatória discreta) de todos os scores",
+                    df.format(desvioPadrao(plataforma, scores, (Double.parseDouble(plataformas.get(plataforma).get("média de todos os scores").toString()) / Double.parseDouble(plataformas.get(plataforma).get("número de reviews").toString()))))
+                );   
+
                 // Calcula a média de todos os scores
                 plataformas.get(plataforma).put(
                     "média de todos os scores",
                     df.format((Double.parseDouble(plataformas.get(plataforma).get("média de todos os scores").toString()) / Double.parseDouble(plataformas.get(plataforma).get("número de reviews").toString())))
-                );
-
-                // Calcula o desvio padrão de todos os scores
-                plataformas.get(plataforma).put(
-                    "desvio padrão (para variável aleatória discreta) de todos os scores",
-                    df.format(desvioPadrao(scores))
-                );                
+                );             
 
                 // Calcula a média de todos os scores Actions
                 plataformas.get(plataforma).put(
@@ -169,8 +174,16 @@ public class Plataforma {
         catch (Exception err) {}
 	}
 
-    public static double desvioPadrao(ArrayList<Double> scores) {
-        
-        return 0.00;
+    public static double desvioPadrao(String plataforma, ArrayList<Double> scores, double mediaAritimetica) {
+    	if (scores.size() == 1) {
+            return 0;
+        } else {
+            float somatorio = 01;
+            for (int i = 0; i < scores.size(); i++) {
+                float result = Float.parseFloat(String.valueOf(scores.get(i) - mediaAritimetica));
+                somatorio = somatorio + result * result;
+            }
+            return Math.sqrt(((float) 1 / (scores.size() - 1)) * somatorio);
+        }       
     }
 }
