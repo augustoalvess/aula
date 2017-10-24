@@ -79,6 +79,20 @@ public class Plataforma {
                         }
                     }
 
+                    // Obtém a soma das notas dos gêneros Actions por plataforma
+                    if (linhaSplit[6].equals("Action")) {
+                        // Soma os scores de todas as plataformas
+                        plataformas.get(linhaSplit[4]).put(
+                            "média de todos os scores actions",
+                            (Float.parseFloat(plataformas.get(linhaSplit[4]).get("média de todos os scores actions").toString()) + Float.parseFloat(linhaSplit[5]))
+                        );
+
+                        // Soma a quantidade de reviews Actions por plataforma.
+                        plataformas.get(linhaSplit[4]).put(
+                            "número de reviews Actions", 
+                            (Integer.parseInt(plataformas.get(linhaSplit[4]).get("número de reviews Actions").toString()) + 1)
+                        );
+                    }
 
                     scores.add(Double.parseDouble(linhaSplit[5]));
 
@@ -96,6 +110,8 @@ public class Plataforma {
                 valores.put("melhor score", Float.parseFloat(linhaSplit[5]) + "");
 				valores.put("pior jogo (um entre os de menor score)", linhaSplit[2]);
                 valores.put("pior score", Float.parseFloat(linhaSplit[5]) + "");
+                valores.put("média de todos os scores actions", (linhaSplit[6].equals("Action") ? Float.parseFloat(linhaSplit[5]) : 0) + "");
+                valores.put("número de reviews Actions", (linhaSplit[6].equals("Action") ? "1" : "0"));
                 scores.add(Double.parseDouble(linhaSplit[5]));
                 
                 plataformas.put(linhaSplit[4], valores);
@@ -122,19 +138,33 @@ public class Plataforma {
                     df.format(desvioPadrao(scores))
                 );                
 
+                // Calcula a média de todos os scores Actions
+                plataformas.get(plataforma).put(
+                    "média de todos os scores actions",
+                    (Float.parseFloat(plataformas.get(plataforma).get("média de todos os scores actions").toString()) / Float.parseFloat(plataformas.get(plataforma).get("número de reviews Actions").toString()))
+                );
+
                 // Remove valores desnecessários
                 plataformas.get(plataforma).remove("melhor score");
-                plataformas.get(plataforma).remove("pior score");
-                
+                plataformas.get(plataforma).remove("pior score");                
             }
 
             //Percorre as plataformas e exibe os resultados obtidos.
+            String plataformaActions = "";
+            String scoreActions = "0";
             for (String plataforma: plataformas.keySet()) {
             	System.out.println(plataforma);
             	for (Object valor: plataformas.get(plataforma).keySet()) {
-            		System.out.println("    " + valor + " = " + plataformas.get(plataforma).get(valor));
+                    System.out.println("    " + valor + " = " + plataformas.get(plataforma).get(valor));
+                    if (valor.equals("média de todos os scores actions") && (Float.parseFloat(plataformas.get(plataforma).get(valor).toString()) > Float.parseFloat(scoreActions))) {
+                        plataformaActions = plataforma;
+                        scoreActions = plataformas.get(plataforma).get(valor).toString();
+                    }
             	}
             }
+
+            System.out.println();
+            System.out.println(plataformaActions + " é a plataforma com os jogos do gênero 'Action' mais bem avaliados");
         }
         catch (Exception err) {}
 	}
