@@ -43,7 +43,7 @@ public class MFTPServer {
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("230.37.40.22"), 9876);
             serverSocket.send(sendPacket);
 
-	    for (int x = 1; x <= 1; x ++)  {
+	    for (int x = 1; x <= 2; x ++)  { // Espera a resposta de 2 clients
 		DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 serverSocket.receive(receivePacket);
                 String receive = new String(receivePacket.getData());
