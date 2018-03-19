@@ -9,7 +9,7 @@ public class MFTPClient {
 
     public static void main(String[] args) throws Exception {
         MulticastSocket clientSocket = new MulticastSocket(9876);
-        clientSocket.joinGroup(InetAddress.getByName("230.0.0.1"));
+        clientSocket.joinGroup(InetAddress.getByName("230.0.0.1"));                
 
         byte[] receiveData = new byte[2048];
         byte[] sendData = new byte[1024];
@@ -20,7 +20,7 @@ public class MFTPClient {
 
         while (true) {
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-            System.out.println("aguardando recebimento do arquivo...");
+            System.out.println("Aguardando recebimento do arquivo...");
             clientSocket.receive(receivePacket);
 
             if (!iniciouTransmissao) {
@@ -30,19 +30,18 @@ public class MFTPClient {
             
             ObjectInputStream streamMensagem = new ObjectInputStream(new ByteArrayInputStream(receivePacket.getData()));
             Mensagem m = (Mensagem) streamMensagem.readObject();
+
             if (m.obterBytes() == -1) {
                 arquivo.close();
-                System.out.println("Arquivo recebido...");
-                iniciouTransmissao = false;
-                continue;
+                iniciouTransmissao = false;                
+                System.out.println("Arquivo recebido...");                
+            } else {
+                arquivo.write(m.obterBuffer(), 0, m.obterBytes());
             }
-            arquivo.write(m.obterBuffer(), 0, m.obterBytes());
-            
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, 
-                    receivePacket.getAddress(), receivePacket.getPort());
 
-            System.out.println("respondendo mensagem para o servidor... " + receivePacket.getAddress().getHostAddress());
-            clientSocket.send(sendPacket);
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, receivePacket.getAddress(), receivePacket.getPort());
+            System.out.println("Respondendo mensagem para o servidor... " + receivePacket.getAddress().getHostAddress());
+            clientSocket.send(sendPacket);            
         }
     }
 }
