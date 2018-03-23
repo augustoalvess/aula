@@ -2,10 +2,12 @@ import java.io.Serializable;
 
 public class Mensagem implements Serializable {
     
+    private int id;
     private byte[] buffer;
     private int bytes;    
 
-    public Mensagem(byte[] buffer, int bytes) {
+    public Mensagem(int id, byte[] buffer, int bytes) {
+	this.id = id;
         this.buffer = buffer;
         this.bytes = bytes;
     }
@@ -16,5 +18,9 @@ public class Mensagem implements Serializable {
     
     public int obterBytes() {
         return this.bytes;
+    }
+
+    public int obterId() {
+        return this.id;
     }
 }

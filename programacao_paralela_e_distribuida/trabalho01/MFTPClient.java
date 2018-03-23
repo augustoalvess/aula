@@ -1,20 +1,16 @@
-import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
+import java.io.*;
+import java.net.*;
 
 public class MFTPClient {
 
     public static void main(String[] args) throws Exception {
         MulticastSocket clientSocket = new MulticastSocket(9876);
-        clientSocket.joinGroup(InetAddress.getByName("230.0.0.1"));                
+        clientSocket.joinGroup(InetAddress.getByName("230.37.40.22"));
 
         byte[] receiveData = new byte[2048];
-        byte[] sendData = new byte[1024];
+	int lastId = 0;
         
-        String nomeArquivo = "/home/augusto/Downloads/saida.jpg";
+        String nomeArquivo = "/home/augusto.silva/Downloads/saida.jpg";
         FileOutputStream arquivo = new FileOutputStream(nomeArquivo);
         boolean iniciouTransmissao = false;
 
@@ -36,10 +32,13 @@ public class MFTPClient {
                 iniciouTransmissao = false;                
                 System.out.println("Arquivo recebido...");                
             } else {
-                arquivo.write(m.obterBuffer(), 0, m.obterBytes());
+		if (m.obterId() != lastId) {
+                    arquivo.write(m.obterBuffer(), 0, m.obterBytes());
+		    lastId = m.obterId();
+		}
             }
 
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, receivePacket.getAddress(), receivePacket.getPort());
+            DatagramPacket sendPacket = new DatagramPacket(receiveData, receiveData.length, receivePacket.getAddress(), receivePacket.getPort());
             System.out.println("Respondendo mensagem para o servidor... " + receivePacket.getAddress().getHostAddress());
             clientSocket.send(sendPacket);            
         }
