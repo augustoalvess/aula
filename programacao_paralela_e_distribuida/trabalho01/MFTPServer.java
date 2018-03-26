@@ -5,9 +5,9 @@ import java.util.*;
 public class MFTPServer {
 
     public static void main(String[] args) throws Exception {
-        FileInputStream file = new FileInputStream("/home/augusto/Downloads/imagem.jpg");
+        FileInputStream file = new FileInputStream("/home/augusto.silva/Downloads/imagem.jpg");
         DatagramSocket serverSocket = new DatagramSocket();
-        serverSocket.setSoTimeout(5);
+        serverSocket.setSoTimeout(100);
 
         byte[] buffer = new byte[1024];
         int bytes = 0;
@@ -32,7 +32,7 @@ public class MFTPServer {
 	    boolean enviado = false;
         while (!enviado) {
             try {
-                Thread.currentThread().sleep(1000);
+                //Thread.currentThread().sleep(1000);
                 ByteArrayOutputStream streamBytes = new ByteArrayOutputStream();
                 ObjectOutputStream streamMensagem = new ObjectOutputStream(streamBytes);
                 streamMensagem.writeObject(m);
@@ -46,11 +46,11 @@ public class MFTPServer {
                 boolean recebido = false;
                 while (!recebido) {
                     DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-                    System.out.println("Aguardando confirmação de recebimento do pacote...");
+                    System.out.println("Aguardando confirmação de recebimento do pacote " + m.obterId() + "...");
                     serverSocket.receive(receivePacket);
 
                     String receive = new String(receivePacket.getData());
-                    System.out.println("Pacote de " + receive.length() + " bytes recebidos pelo client " + receivePacket.getAddress().getHostAddress());
+                    System.out.println("Pacote " + m.obterId() + " de " + receive.length() + " bytes recebidos pelo client " + receivePacket.getAddress().getHostAddress());
 
                     // Adiciona o host do client que recebeu o pacote na lista de clients confirmados.
                     clients.put(receivePacket.getAddress().getHostAddress(), receive.length() + "");

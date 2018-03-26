@@ -10,7 +10,7 @@ public class MFTPClient {
         byte[] receiveData = new byte[2048];
 	    int lastId = 0;
         
-        String nomeArquivo = "/home/augusto/Downloads/saida.jpg";
+        String nomeArquivo = "/home/augusto.silva/Downloads/saida.jpg";
         FileOutputStream arquivo = new FileOutputStream(nomeArquivo);
         boolean iniciouTransmissao = false;
 
@@ -26,6 +26,8 @@ public class MFTPClient {
             
             ObjectInputStream streamMensagem = new ObjectInputStream(new ByteArrayInputStream(receivePacket.getData()));
             Mensagem m = (Mensagem) streamMensagem.readObject();
+            String receive = new String(receivePacket.getData());
+            System.out.println("Pacote " + m.obterId() + " de " + receive.length() + " bytes recebidos pelo servidor " + receivePacket.getAddress().getHostAddress());
 
             if (m.obterBytes() == -1) {
                 arquivo.close();
@@ -38,17 +40,9 @@ public class MFTPClient {
 		        }
             }
 
-            boolean enviado = false;
-            while (!enviado) {
-                try {
-                    DatagramPacket sendPacket = new DatagramPacket(receiveData, receiveData.length, receivePacket.getAddress(), receivePacket.getPort());
-                    System.out.println("Respondendo mensagem para o servidor... " + receivePacket.getAddress().getHostAddress());
-                    clientSocket.send(sendPacket);
-                    enviado = true;
-                } catch (Exception e) {
-                    enviado = false;
-                }
-            }   
+            DatagramPacket sendPacket = new DatagramPacket(receiveData, receiveData.length, receivePacket.getAddress(), receivePacket.getPort());
+            System.out.println("Confirmando recebimento do pacote " + m.obterId() + " para o servidor " + receivePacket.getAddress().getHostAddress());
+            clientSocket.send(sendPacket);
         }
     }
 }
