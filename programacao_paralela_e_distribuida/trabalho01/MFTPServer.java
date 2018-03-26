@@ -54,7 +54,7 @@ public class MFTPServer {
 
                     // Adiciona o host do client que recebeu o pacote na lista de clients confirmados.
                     clients.put(receivePacket.getAddress().getHostAddress(), receive.length() + "");
-                    if (clients.size() < 1) {
+                    if (clients.size() < 2) {
                         continue;
                     }
 
