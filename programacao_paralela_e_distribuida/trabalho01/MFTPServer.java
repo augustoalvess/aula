@@ -1,21 +1,21 @@
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class MFTPServer {
 
     public static void main(String[] args) throws Exception {
-        FileInputStream file = new FileInputStream("/home/augusto.silva/Downloads/imagem.jpg");
+        FileInputStream file = new FileInputStream("/home/augusto/Downloads/imagem.jpg");
         DatagramSocket serverSocket = new DatagramSocket();
         serverSocket.setSoTimeout(5);
 
         byte[] buffer = new byte[1024];
         int bytes = 0;
-	int id = 1;
+	    int id = 1;
         while ((bytes = file.read(buffer)) != -1) {
             Mensagem m = new Mensagem(id, buffer, bytes);
             MFTPServer.enviarMensagem(serverSocket, m);
-	    id++;
-	    Thread.currentThread().sleep(1000);
+	        id++;
         }
         Mensagem m = new Mensagem(id, buffer, -1);
         MFTPServer.enviarMensagem(serverSocket, m);
@@ -25,13 +25,14 @@ public class MFTPServer {
     }
 
     public static void enviarMensagem(DatagramSocket serverSocket, Mensagem m) {
-	DatagramSocket originalServerSocket = serverSocket;
+	    DatagramSocket originalServerSocket = serverSocket;
         byte[] sendData = new byte[2048];
         byte[] receiveData = new byte[1024];
 
-	boolean enviado = false;
+	    boolean enviado = false;
         while (!enviado) {
-            try {        
+            try {
+                Thread.currentThread().sleep(1000);
                 ByteArrayOutputStream streamBytes = new ByteArrayOutputStream();
                 ObjectOutputStream streamMensagem = new ObjectOutputStream(streamBytes);
                 streamMensagem.writeObject(m);
@@ -41,17 +42,30 @@ public class MFTPServer {
                 DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("230.37.40.22"), 9876);
                 serverSocket.send(sendPacket);
 
-	        for (int x = 1; x <= 2; x ++)  { // Espera a resposta de 2 clients
-		    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                HashMap<String, String> clients = new HashMap<String, String>();
+                boolean recebido = false;
+                while (!recebido) {
+                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                    System.out.println("Aguardando confirmação de recebimento do pacote...");
                     serverSocket.receive(receivePacket);
+
                     String receive = new String(receivePacket.getData());
-                    System.out.println("Pacote de " + receive.length() + " bytes enviados para o client " + receivePacket.getAddress().getHostAddress());	         
-	        }
-		enviado = true;	
+                    System.out.println("Pacote de " + receive.length() + " bytes recebidos pelo client " + receivePacket.getAddress().getHostAddress());
+
+                    // Adiciona o host do client que recebeu o pacote na lista de clients confirmados.
+                    clients.put(receivePacket.getAddress().getHostAddress(), receive.length() + "");
+                    if (clients.size() < 1) {
+                        continue;
+                    }
+
+                    recebido = true;
+                }
+
+		        enviado = true;
             } catch (Exception e) {
                 System.out.println("Tempo de execução excedido...reenviando pacote para o client");
-	        enviado = false;	
+	            enviado = false;	
+	        }
 	    }
-	}
     }
 }
