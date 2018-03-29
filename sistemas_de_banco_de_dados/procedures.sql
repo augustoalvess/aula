@@ -45,6 +45,7 @@ BEGIN
     DECLARE usuario_retirante_id INT;
     DECLARE situacao_id INT;
     DECLARE config_de_multa_id INT;
+    DECLARE data DATE;
 
     SET @x = pcodeini;
     SET atendente_id = FLOOR(1 + (RAND() * 40));
@@ -53,7 +54,8 @@ BEGIN
     SET config_de_multa_id = FLOOR(1 + (RAND() * 200));
         
     REPEAT
-    INSERT INTO retirada VALUES(id, atendente_id, usuario_retirante_id, situacao_id, config_de_multa_id, (CURDATE() - INTERVAL FLOOR(RAND() * 50000) DAY), (CURDATE() - INTERVAL FLOOR(RAND() * 50000) DAY), (CURDATE() - INTERVAL FLOOR(RAND() * 50000) DAY), FLOOR(RAND() * 10));
+    SET data = (CURDATE() - INTERVAL FLOOR(RAND() * 50000) DAY);
+    INSERT INTO retirada VALUES(id, atendente_id, usuario_retirante_id, situacao_id, config_de_multa_id, data, data, data, FLOOR(RAND() * 10));
         SET @x = @x + 1;
     UNTIL @x > pcodemax
     END REPEAT;
