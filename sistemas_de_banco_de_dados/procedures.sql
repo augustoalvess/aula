@@ -1,5 +1,5 @@
+DROP PROCEDURE IF EXISTS inserelivro;
 DELIMITER $$
-DROP PROCEDURE IF EXISTS inserelivro$$
 CREATE PROCEDURE inserelivro (pcodeini INT, pcodemax INT, editora_id INT, edicao INT, data_publicacao DATE, local_publicacao VARCHAR(255))
 BEGIN
     DECLARE qtd_total INT;
@@ -16,12 +16,13 @@ BEGIN
     END REPEAT;
  
     SELECT pcodeini;
-END$$
-DELIMITER;
+END;
+$$
+DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS insereusuario;
 DELIMITER $$
-DROP PROCEDURE IF EXISTS insereusuario$$
 CREATE PROCEDURE insereusuario (pcodeini INT, pcodemax INT)
 BEGIN
     SET @x = pcodeini;
@@ -33,12 +34,13 @@ BEGIN
     END REPEAT;
  
     SELECT pcodeini;
-END$$
-DELIMITER;
+END;
+$$
+DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS insereretirada;
 DELIMITER $$
-DROP PROCEDURE IF EXISTS insereretirada$$
 CREATE PROCEDURE insereretirada (pcodeini INT, pcodemax INT)
 BEGIN
     DECLARE atendente_id INT;
@@ -61,5 +63,6 @@ BEGIN
     END REPEAT;
  
     SELECT pcodeini;
-END$$
-DELIMITER;
+END;
+$$
+DELIMITER ;
