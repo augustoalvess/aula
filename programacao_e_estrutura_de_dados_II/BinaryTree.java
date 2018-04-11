@@ -16,7 +16,7 @@ public class BinaryTree
       return n;
     }
     else {
-      System.err.println("left child exists " + p.left);
+      System.err.println("left child exists");
       return null;
     }
   }
@@ -29,7 +29,7 @@ public class BinaryTree
       return n;
     }
     else {
-      System.err.println("right child exists " + p.right);
+      System.err.println("right child exists");
       return null;
     }
   }
