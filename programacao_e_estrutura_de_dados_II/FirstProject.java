@@ -1,5 +1,8 @@
 import javax.script.*;
 
+/**
+ * Autor: Augusto Alves da Silva - 565568
+ */
 public class FirstProject {
 	public static void main(String[] args) {
 		BinaryTree tree1 = makeBinaryTreeByExp("/ + 39 54 + 13 78");
