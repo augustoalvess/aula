@@ -135,7 +135,7 @@
            ON livro.id = multa_da_retirada.livro_id      
         WHERE multa_da_retirada.data_pagamento > multa_da_retirada.data_vencimento;
 
---Consulta somente os livros que foram retirados ao menos uma vez, com EXISTS
+--Consulta somente os livros que nunca foram retirados, com EXISTS
        SELECT livro.id AS cod_livro,
               editora.id AS cod_editora,
               editora.nome AS editora,
@@ -158,7 +158,7 @@
            ON autor_do_livro.livro_id = livro.id
     LEFT JOIN autor
            ON autor.id = autor_do_livro.autor_id
-        WHERE EXISTS (SELECT retirada_id
+        WHERE NOT EXISTS (SELECT retirada_id
                         FROM livro_da_retirada
                        WHERE livro_da_retirada.livro_id = livro.id
                        LIMIT 1)
@@ -173,7 +173,7 @@
               livro.qtd_disponivel;
 
 
---Consulta somente os livros que foram retirados ao menos uma vez, com IN
+--Consulta somente os livros que nunca foram retirados, com IN
        SELECT livro.id AS cod_livro,
               editora.id AS cod_editora,
               editora.nome AS editora,
@@ -196,7 +196,7 @@
            ON autor_do_livro.livro_id = livro.id
     LEFT JOIN autor
            ON autor.id = autor_do_livro.autor_id
-        WHERE livro.id IN (SELECT DISTINCT livro_id
+        WHERE livro.id NOT IN (SELECT DISTINCT livro_id
                                       FROM livro_da_retirada)
      GROUP BY livro.id,
               editora.id,
