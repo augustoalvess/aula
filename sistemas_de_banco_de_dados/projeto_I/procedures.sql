@@ -1,6 +1,6 @@
 DROP PROCEDURE IF EXISTS inserelivro;
 DELIMITER $$
-CREATE PROCEDURE inserelivro (pcodeini INT, pcodemax INT, editora_id INT, edicao INT, data_publicacao DATE, local_publicacao VARCHAR(255))
+CREATE PROCEDURE inserelivro (pcodeini INT, pcodemax INT)
 BEGIN
     DECLARE qtd_total INT;
     DECLARE qtd_disponivel INT;
@@ -10,7 +10,7 @@ BEGIN
     SET qtd_disponivel = FLOOR(RAND() * 100);      
         
     REPEAT
-	INSERT INTO livro VALUES(id, editora_id, concat('LIVRO DE TESTE ', @x), edicao, data_publicacao, local_publicacao, qtd_total, qtd_disponivel);
+	INSERT INTO livro VALUES(id, FLOOR(1 + (RAND() * 100)), concat('LIVRO DE TESTE ', @x), FLOOR(1980 + (RAND() * 2018)), (CURDATE() - INTERVAL FLOOR(RAND() * 50000) DAY), concat('LOCAL ', @x), FLOOR(1 + (RAND() * 10)), FLOOR(1 + (RAND() * 10)));
         SET @x = @x + 1;
     UNTIL @x > pcodemax
     END REPEAT;
