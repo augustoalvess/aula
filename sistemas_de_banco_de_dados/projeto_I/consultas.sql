@@ -265,7 +265,7 @@
            ON autor_do_livro.livro_id = livro.id
     LEFT JOIN autor
            ON autor.id = autor_do_livro.autor_id
-        WHERE genero.descricao = 'AÇÃO'
+        WHERE genero.descricao LIKE '%AÇÃO%'
      GROUP BY livro.id,
               editora.id,
               editora.nome,
@@ -298,7 +298,7 @@
            ON autor_do_livro.livro_id = livro.id
     LEFT JOIN autor
            ON autor.id = autor_do_livro.autor_id
-        WHERE genero.descricao = 'TERROR'
+        WHERE genero.descricao LIKE '%TERROR%'
      GROUP BY livro.id,
               editora.id,
               editora.nome,
