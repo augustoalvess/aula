@@ -6,6 +6,10 @@ public class BinaryTree
     root = new Node(s);
   }
 
+  public BinaryTree(Node n) {
+    root = n;
+  }
+
   public Node getRoot() { return root; }
 
   public Node addLeftChild(Node p, String s) {
