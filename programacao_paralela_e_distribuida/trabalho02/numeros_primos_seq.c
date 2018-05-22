@@ -2,10 +2,10 @@
 #include <string.h>
 
 void main() {
-	int tamanhoVetor = 2500000;
+	int tamanhoVetor = 2500;
 	int resultado = 0;
 
-	for (int x = 0; x <= tamanhoVetor; x++) {
+	for (int x = 1; x <= tamanhoVetor; x=x+2) {
 		int cont = 0;
 
 		// verificar se i é um número primo.

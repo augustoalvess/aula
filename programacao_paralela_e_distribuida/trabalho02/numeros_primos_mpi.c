@@ -12,17 +12,21 @@ void main(int argc, char** argv) {
 	MPI_Comm_size(MPI_COMM_WORLD, &nroNodos);
 	MPI_Get_processor_name(hostName, &tamanhoHostName);
 
-	int tamanhoVetor = 2500;
+	int tamanhoVetor = 500000;
 	int qtdePorNodo = (int)tamanhoVetor / nroNodos;
 	int resultado = 0;
 	int resultadoParcial = 0;
 
 	int inicio = nroNodo * qtdePorNodo;
+	if (inicio % 2 == 0) {
+		inicio++;
+	}
+
 	int fim = inicio + qtdePorNodo - 1;
 
 	printf("[nodo: %d@%s] - %d .. %d\n", nroNodo, hostName, inicio, fim);
 
-	for (int x = inicio; x <= fim; x++) {
+	for (int x = inicio; x <= fim; x=x+2) {
 		int cont = 0;
 
 		// verificar se i é um número primo.
