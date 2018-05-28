@@ -30,14 +30,15 @@ void main(int argc, char** argv) {
 		int cont = 0;
 
 		// verificar se i é um número primo.
-		for (int i = 1; i <= x; i++) {
+		for (int i = 3; i <= x; i++) {
     		if (x % i == 0) {
      			cont++;
+     			break;
     		}
     	}
     
     	// se for primo, soma resultado + 1
-  		if (cont == 2) {
+  		if (cont == 1) {
   			resultado++;
   		}
 	}
