@@ -69,3 +69,29 @@ if ($response->hasError()) {
 }
 
 echo "\r\n";
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+    'cod_livro': 1, 
+    'cod_editora': 1, 
+    'editora': 'Editora teste',
+    'livro': 'Teste',
+    'edicao': '2',
+    'data_publicacao': '10/01/1992',
+    'local_publicacao': 'São Paulo',
+    'qtd_total': '5',
+    'qtd_disponivel': '5',
+    'genero': 'Ação',
+    'autor': 'João'
+}
