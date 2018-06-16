@@ -15,7 +15,7 @@ for aluno in alunos:
 
 nn = NeuralNetwork(x, y)
 
-for i in range(1000000):
+for i in range(5000):
 	nn.feedforward()
 	nn.backprop()
 
