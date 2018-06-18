@@ -10,8 +10,8 @@ class NeuralNetwork:
 
     def __init__(self, x, y):
         self.input = x
-        self.weights1 = np.random.rand(self.input.shape[1], 40)
-        self.weights2 = np.random.rand(40, 1)
+        self.weights1 = np.random.rand(self.input.shape[1], 35)
+        self.weights2 = np.random.rand(35, 2)
         #self.weights2 = np.random.rand(40, 20)
         #self.weights3 = np.random.rand(20, 1)
         self.y = y
