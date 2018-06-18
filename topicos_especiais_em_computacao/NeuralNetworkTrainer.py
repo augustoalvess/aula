@@ -1,5 +1,7 @@
 import csv
 import numpy as np
+import time
+import datetime
 from NeuralNetwork import NeuralNetwork
 
 evadidos = np.genfromtxt('dados_alunos_evadidos.csv', delimiter=',')
@@ -15,8 +17,10 @@ for aluno in alunos:
 
 nn = NeuralNetwork(x, y)
 
-for i in range(5000):
+print(datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
+for i in range(50000000):
 	nn.feedforward()
 	nn.backprop()
+print(datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
 
 print(nn.output)
