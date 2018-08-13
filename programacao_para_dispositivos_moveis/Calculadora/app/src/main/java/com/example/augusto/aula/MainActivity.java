@@ -1,5 +1,6 @@
 package com.example.augusto.aula;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Button equalBtn;
     private Button delBtn;
     private Button clearBtn;
+    private Button settingsBtn;
     private TextView calcText;
 
     private boolean restart = true;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         equalBtn = (Button) findViewById(R.id.equal_btn);
         delBtn = (Button) findViewById(R.id.del_btn);
         clearBtn = (Button) findViewById(R.id.clear_btn);
+        settingsBtn = (Button) findViewById(R.id.settings_btn);
         calcText = (TextView) findViewById(R.id.calc_text);
 
         zeroBtn.setOnClickListener(new View.OnClickListener() {
@@ -205,6 +208,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 restart = true;
                 checkRestart();
+            }
+        });
+
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restart = true;
+                checkRestart();
+
+                Intent intent= new Intent(MainActivity.this, Main3Activity.class);
+                intent.setAction(Intent.ACTION_VIEW);
+                startActivity(intent);
             }
         });
     }

@@ -17,4 +17,8 @@
     <string name="three">3</string>
     <string name="equals">=</string>
     <string name="zero">0</string>
+    <string name="settings">Configurações</string>
+    <string name="tutto">Tutorial</string>
+    <string name="back">Voltar</string>
+    <string name="save">Salvar</string>
 </resources>
