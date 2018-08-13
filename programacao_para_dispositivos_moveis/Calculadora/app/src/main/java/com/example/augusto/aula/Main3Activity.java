@@ -1,17 +1,23 @@
 package com.example.augusto.aula;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 public class Main3Activity extends AppCompatActivity {
 
     private Button backBtn;
     private Button saveBtn;
+    private VideoView tuttoVideo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,5 +51,13 @@ public class Main3Activity extends AppCompatActivity {
                 finish();
             }
         });
+
+        tuttoVideo = (VideoView) findViewById(R.id.tutto_video);
+        tuttoVideo.setVideoURI(Uri.parse("http://www.youtube.com/watch?v=HR5uq-WDaJ8"));
+        MediaController mc = new MediaController(Main3Activity.this);
+        tuttoVideo.setMediaController(mc);
+        tuttoVideo.requestFocus();
+        tuttoVideo.start();
+        mc.show();
     }
 }
