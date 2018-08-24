@@ -4,7 +4,7 @@ require_once 'citizen.php';
 
 class Population {
 	
-	const MAX_POPULATION = 50;
+	const MAX_POPULATION = 20;
 	private $population = array();
 	private $bestCitizens = array();
 	private $objective = '';
@@ -50,22 +50,12 @@ class Population {
 		
 		for ($x=0; $x<self::MAX_POPULATION; $x++) {
 			echo "<tr><td>Cromossomo " . ( $x +1 ) . "</td><td>";
-			$this->population[$x]->setData($this->randomData(strlen($this->objective)));
+			$presente = str_pad(decbin(rand(1, 14)), 4, '0', STR_PAD_LEFT);
+			$local = str_pad(decbin(rand(1, 3)), 2, '0', STR_PAD_LEFT);
+			echo $presente . $local . "</td></tr>";
+			$this->population[$x]->setData($presente . $local);
 		}
 		echo "</tbody></table><br /><br />";
-	}
-	
-	// Basicamente, retornamos uma string de caracteres aleatórios com o tamanho desejado
-	// Para este exercício, limitamos o conteúdo da string para Unidades e Zeros
-	private function randomData($length) {
-		$temp = '';
-		// Nós geramos uma string aleatória de zeros e uns ... do comprimento solicitado
-		for ($x=0;$x<$length;$x++) {
-			//$temp .= chr(mt_rand(32, 126));
-			$temp .= (string)mt_rand(0, 1);
-		}
-		echo $temp . "</td></tr>";
-		return $temp;
 	}
 
 	// Simplesmente para ordenação dos caracteres
@@ -76,7 +66,7 @@ class Population {
 	    if ($a == $b) {
 	        return 0;
 	    }
-	    return ($a < $b) ? -1 : 1;
+	    return ($a > $b) ? -1 : 1;
 	}
 	
 	public function assignBestCitizens() {
@@ -93,13 +83,16 @@ class Population {
 	
 	public function reproduce() {
 		$best = $this->population[0]->getData();
+
 		for ($x=1; $x<self::MAX_POPULATION; $x++) {
 			$temp = $this->population[$x]->getData();
-			for ($y=0;$y<strlen($this->objective);$y++) {
+
+			for ($y=0; $y < strlen($this->objective);$y++) {
 				if (mt_rand(0,1)) {
 				  $temp[$y] = $best[$y];
 				}
 			}
+
 			$this->population[$x]->setData($temp);
 		}
 	}

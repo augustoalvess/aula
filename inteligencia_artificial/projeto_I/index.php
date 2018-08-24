@@ -15,10 +15,60 @@ $ga = new GA(1);
 
 // Estabelecemos o objetivo
 // O objetivo é atingir uma cadeia de 30 números 1
-$ga->setObjective(0, '111111111111111111111111111111');
+
+// Legenda
+
+// PRESENTEADOR
+// Homem 1
+// Mulher 0
+
+
+
+
+
+// MELHOR PRESENTE PARA DAR PARA A NAMORADA NOS DIAS DOS NAMORADOS.
+
+// PONTUAÇÃO DOS PRESENTES
+// Flor                    9	0001
+// Chocolate              10	0010
+// Anel                   15	0011
+// Meia                    3	0100
+// Vestido                 7	0101
+// Lingerie                5	0110
+// Sapato 				  20	0111
+// Bolsa 				  15	1000
+// Viagem 				  25	1001
+// Cinema 				   5	1010
+// Pote 				  16	1011
+// Anjinho 				   0	1100
+// Roupa 				  18	1101
+// Pijama 				   3	1110
+
+// PONTUAÇÃO DAS ENTREGAS
+// Em casa                10	01
+// Em um jantar           15	10
+// No trabalho             5	11
+
+
+
+$ga->setObjective(0, '000101');
+
+// Os cromossomos devem ser gerados aleatóriamentes baseados nos critérios.
+// Baseado em presente já dados, verificar quais foram os melhores presentes.
+// Obter o melhor presente do mundo.
+
+
+
+// Adaptar o métdodo de cálculo de fitnes e não atribuir uma solução melhor, mas sim executar até x gerações.
+
+
+
+
 
 // Inicializamos o objetivo
 $ga->startUp(0);
 
 // Iniciamos a evolução
 $bests = $ga->start(0);
+
+

@@ -4,6 +4,27 @@ class Citizen {
 	
 	private $data;
 	private $fitness;
+	private $presentes = array(
+		"0001" => 9,
+		"0010" => 10,
+		"0011" => 15,
+		"0100" => 3,
+		"0101" => 7,
+		"0110" => 5,
+		"0111" => 20,
+		"1000" => 15,
+		"1001" => 25,
+		"1010" => 5,
+		"1011" => 16,
+		"1100" => 0,
+		"1101" => 18,
+		"1110" => 3
+	);
+	private $locais = array(
+		"01" => 10,
+		"10" => 15,
+		"11" => 5
+	);
 	
 	public function __construct() {
 		$this->data = '';
@@ -45,17 +66,11 @@ class Citizen {
 			}
 			
 			$fitness = 0;
-			// Basicamente, passamos por todos os elementos da matriz e obtemos o valor
-			// ascii do caractere atual mutado ... e do caractere objetivo ... e então os subtraímos.
-			// Obviamente, quanto mais nos aproximamos da cadeia alvo ... quanto menor
-			// valor de fitness porque toda vez estaremos mais próximos da cadeia alvo e
-			// haverá menos diferença entre a subtração do ascii() atual do objetivo
-			for ($x=0;$x<strlen($objective);$x++) {
-				//echo $objective[$x] . "   -   " . $this->data[$x] . "   -   " . abs(ord($objective[$x]) - ord($this->data[$x])) . "   -   " . $fitness . "<br />";
-				$fitness += abs(ord($objective[$x]) - ord($this->data[$x]));
-			}
-			
-			$this->setFitness($fitness);
+
+			$presente = substr($this->data, 0, 4);
+			$local = substr($this->data, -2);
+
+			$this->setFitness($this->presentes[$presente] + $this->locais[$local]);
 		} catch(Exception $e) {
 			die($e->getMessage());
 		}

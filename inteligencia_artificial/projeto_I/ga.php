@@ -5,7 +5,7 @@ require_once 'population.php';
 class GA {
 
 	private $banks = array();
-	const MAX_GENERATIONS = 50000;
+	const MAX_GENERATIONS = 5;
 	const FITNESS_THRESHOLD = 0;
 
 	public function __construct($banks = NULL) {
@@ -63,9 +63,9 @@ class GA {
 			if (is_null($bank)) {
 				throw new Exception('Erro, falta especificar banco');
 			}
-			$this->banks[$bank]->startUp();
-			$this->banks[$bank]->calculateFitness();
-			$this->banks[$bank]->assignBestCitizens();
+			$this->banks[$bank]->startUp(); // Inicializa a população
+			$this->banks[$bank]->calculateFitness(); // Calcula o fitness da população
+			$this->banks[$bank]->assignBestCitizens(); // Atribui os melhores cidadãos da população
 		} catch(Exception $e) {
 			die($e->getMessage());
 		}
@@ -94,7 +94,7 @@ class GA {
 			if (is_null($bank)) {
 				throw new Exception('Erro, falta especificar banco');
 			}
-			//BUCLE HASTA ENCONTRAR EL MEJOR CANDIDATO
+			// Loop para encontrar o melhor candidato
 			$end = FALSE;
 			$generation = 0;
 			$stime = $this->microtime_float();
@@ -106,7 +106,7 @@ class GA {
 			echo "<th class = 'success'>FITNESS</th>";
 			echo "</tr></thead><tbody>";
 			
-			while ($end == FALSE && $generation < self::MAX_GENERATIONS) {
+			while ($generation < self::MAX_GENERATIONS) {
 				// Criamos candidatos dos dois melhores candidatos da geração anterior
 				$this->banks[$bank]->reproduce();
 
@@ -127,7 +127,6 @@ class GA {
 				}
 
 				$generation++;
-				$end = $this->isFinished(0, self::FITNESS_THRESHOLD);
 			}
 			echo "</tbody></table><br /><br />";
 			$ftime = $this->microtime_float();
