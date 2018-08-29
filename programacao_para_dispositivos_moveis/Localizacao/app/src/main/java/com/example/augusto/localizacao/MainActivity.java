@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
-        //recarregarLocal();
         buscarUltimoLocal();
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
@@ -66,28 +66,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dados.put("longitude", atualLongitude.getText().toString());
                 db.insert("local", null, dados);
                 buscarUltimoLocal();
+                Toast.makeText(MainActivity.this,"Localização salva com sucesso", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btnRecarregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recarregarLocal();
-            }
-        });
+        btnRecarregar.setOnClickListener(this);
     }
 
     public void buscarUltimoLocal() {
         cur = db.query("local", new String[]{"id", "latitude", "longitude"}, null, null, null, null, null);
-        cur.moveToLast();
-        ultimaLatitude.setText(cur.getString(1));
-        ultimaLongitude.setText(cur.getString(2));
-    }
-
-    public void recarregarLocal() {
-        Random rand = new Random();
-        atualLatitude.setText(rand.nextInt(1000) + 1); // APAGAR
-        atualLongitude.setText(rand.nextInt(1000) + 1); // APAGAR
+        if (cur.getCount() > 0) {
+            cur.moveToLast();
+            ultimaLatitude.setText(cur.getString(1));
+            ultimaLongitude.setText(cur.getString(2));
+        }
     }
 
     @Override
