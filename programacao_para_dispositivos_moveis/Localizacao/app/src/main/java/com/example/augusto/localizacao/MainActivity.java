@@ -75,8 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void buscarUltimoLocal() {
         cur = db.query("local", new String[]{"id", "latitude", "longitude"}, null, null, null, null, null);
-        if (cur.getCount() > 0) {
-            cur.moveToLast();
+        if (cur.moveToLast()) {
             ultimaLatitude.setText(cur.getString(1));
             ultimaLongitude.setText(cur.getString(2));
         }
