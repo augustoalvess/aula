@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Localizacao</string>
     <string name="salvar">Salvar</string>
+    <string name="labelLongitude">Longitude</string>
+    <string name="labelLatitude">Latitude</string>
+    <string name="lblAtualLatitude">Latitude atual</string>
+    <string name="lblAtualLongitude">Longitude atual</string>
+    <string name="btnSalvar">Salvar</string>
+    <string name="btnRecarregar">Recarregar</string>
+    <string name="lblUltimaLatitude">Latitude anterior</string>
+    <string name="lblUltimaLongitude">Longitude anterior</string>
 </resources>
