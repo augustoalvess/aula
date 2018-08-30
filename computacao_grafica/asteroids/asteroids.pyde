@@ -42,7 +42,7 @@ def keyPressed():
     global x, y, angle, speed
     if (key == CODED):        
         if (keyCode == UP):    speed -= 0.3#; makeAsteroid(); 
-        if (keyCode == DOWN):  speed += 0.3
+        if (keyCode == DOWN):  speed += 0.3==
         if (keyCode == LEFT):  angle -= 5 #x -= 5
         if (keyCode == RIGHT): angle += 5 #x += 5
 
