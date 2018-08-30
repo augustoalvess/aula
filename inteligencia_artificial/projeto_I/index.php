@@ -44,14 +44,29 @@ $ga = new GA(1);
 // Roupa 				  18	1101
 // Pijama 				   3	1110
 
-// PONTUAÇÃO DAS ENTREGAS
+// PONTUAÇÃO DO LOCAL
 // Em casa                10	01
 // Em um jantar           15	10
 // No trabalho             5	11
 
+// PONTUAÇÃO DO HORÁRIO
+// Pela manhã			  10    001
+// Meio do dia            5     010
+// A tarde                15	011
+// A noite                20	100
+// De madrugada           3		101
+
+// PONTUAÇÃO DO STATUS
+// De bom humor           20	001
+// De mal humor           5     010
+// TPM                    7     011
+// Concentrada            10    100
+// Precionada             5     101
+// Séria                  9     110
+// Reconciliação          15	111
 
 
-$ga->setObjective(0, '000101');
+$ga->setObjective(0, '000000000000');
 
 // Os cromossomos devem ser gerados aleatóriamentes baseados nos critérios.
 // Baseado em presente já dados, verificar quais foram os melhores presentes.

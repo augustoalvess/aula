@@ -25,6 +25,21 @@ class Citizen {
 		"10" => 15,
 		"11" => 5
 	);
+	private $horarios = array(
+		"001" => 10,
+		"010" => 5,
+		"011" => 15,
+		"100" => 20,
+		"101" => 3
+	);
+	private $statuses = array(
+		"001" => 20,
+		"010" => 5,
+		"011" => 7,
+		"100" => 10,
+		"101" => 5,
+		"110" => 15
+	);
 	
 	public function __construct() {
 		$this->data = '';
@@ -68,9 +83,11 @@ class Citizen {
 			$fitness = 0;
 
 			$presente = substr($this->data, 0, 4);
-			$local = substr($this->data, -2);
+			$local = substr($this->data, 4, 2);
+			$horario = substr($this->data, 6, 3);
+			$status = substr($this->data, 9, 3);
 
-			$this->setFitness($this->presentes[$presente] + $this->locais[$local]);
+			$this->setFitness($this->presentes[$presente] + $this->locais[$local] + $this->horarios[$horario] + $this->statuses[$status]);
 		} catch(Exception $e) {
 			die($e->getMessage());
 		}

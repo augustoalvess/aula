@@ -5,7 +5,7 @@ require_once 'population.php';
 class GA {
 
 	private $banks = array();
-	const MAX_GENERATIONS = 5;
+	const MAX_GENERATIONS = 10;
 	const FITNESS_THRESHOLD = 0;
 
 	public function __construct($banks = NULL) {

@@ -52,8 +52,10 @@ class Population {
 			echo "<tr><td>Cromossomo " . ( $x +1 ) . "</td><td>";
 			$presente = str_pad(decbin(rand(1, 14)), 4, '0', STR_PAD_LEFT);
 			$local = str_pad(decbin(rand(1, 3)), 2, '0', STR_PAD_LEFT);
-			echo $presente . $local . "</td></tr>";
-			$this->population[$x]->setData($presente . $local);
+			$horario = str_pad(decbin(rand(1, 5)), 3, '0', STR_PAD_LEFT);
+			$status = str_pad(decbin(rand(1, 6)), 3, '0', STR_PAD_LEFT);
+			echo $presente . $local . $horario . $status . "</td></tr>";
+			$this->population[$x]->setData($presente . $local . $horario . $status);
 		}
 		echo "</tbody></table><br /><br />";
 	}
